@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:sif="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stream="http://www.springframework.org/schema/integration/stream"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration.xsd
+			http://www.springframework.org/schema/integration/stream
+			http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
+
+	<sif:gateway id="helloGateway"
+		service-interface="org.codehowpedia.sif.hellosi.HelloSpringService"
+		default-request-channel="inputChannel" />
+
+	<sif:channel id="inputChannel" />
+
+	<sif:service-activator input-channel="inputChannel"
+		output-channel="printChannel" ref="msgfactory" method="gateWayMessageEnricher" />
+
+	<sif:channel id="printChannel" />
+	
+	<bean id="msgfactory" class="org.codehowpedia.sif.hellosi.MessageFactory" />
+	
+	<stream:stdout-channel-adapter
+		append-newline="true" channel="printChannel" />
+</beans>
