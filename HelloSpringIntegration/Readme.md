@@ -1,6 +1,8 @@
 #Hello World Demo
 
-This project contains two applications
+This sample hello world project helps to understand the basics of spring integration framework.
+
+Inside this project we have two applications
 
 1) HelloWorldDemoApp
 2) GateWayProxyDemoApp
